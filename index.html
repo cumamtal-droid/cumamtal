@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Okulumuzda Ramazan Sevinci & İftar Sayacı</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #ffcc33;
+            --dark-overlay: rgba(10, 25, 47, 0.75);
+            --white: #ffffff;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+            font-family: 'Segoe UI', sans-serif;
+            color: var(--white);
+            background-color: #050a12;
+            scroll-behavior: smooth;
+        }
+
+        /* Arka Plan Görseli */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            width: 100%;
+            background-image: url('okul.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.4), var(--dark-overlay));
+            z-index: 1;
+        }
+
+        /* Hareketli Hilal */
+        .floating-moon {
+            position: absolute;
+            top: 5%;
+            right: 10%;
+            font-size: 80px;
+            color: #fffde7;
+            filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.8));
+            z-index: 2;
+            animation: moonMove 6s ease-in-out infinite;
+        }
+
+        @keyframes moonMove {
+            0%, 100% { transform: translateY(0) rotate(5deg); }
+            50% { transform: translateY(-20px) rotate(-5deg); }
+        }
+
+        /* İçerik */
+        .content {
+            position: relative;
+            z-index: 3;
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: var(--gold);
+            margin: 10px 0;
+            text-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        /* Sayacı Tasarımı */
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .time-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--gold);
+            padding: 20px;
+            border-radius: 15px;
+            min-width: 100px;
+        }
+
+        .time-box span {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--gold);
+        }
+
+        .time-box label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Bilgi Kartları */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            transition: 0.4s;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 204, 51, 0.15);
+            border-color: var(--gold);
+        }
+
+        .glass-card i {
+            font-size: 40px;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        footer {
+            margin-top: 50px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            padding-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .countdown-container { gap: 10px; }
+            .time-box { min-width: 70px; padding: 10px; }
+            .time-box span { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero-section">
+        <div class="overlay"></div>
+        
+        <div class="floating-moon">
+            <i class="fas fa-moon"></i>
+        </div>
+
+        <div class="content">
+            <p style="letter-spacing: 5px; color: var(--gold);">HOŞGELDİN YA ŞEHR-İ RAMAZAN</p>
+            <h1>İftara Kalan Süre</h1>
+
+            <div class="countdown-container">
+                <div class="time-box">
+                    <span id="hours">00</span>
+                    <label>Saat</label>
+                </div>
+                <div class="time-box">
+                    <span id="minutes">00</span>
+                    <label>Dakika</label>
+                </div>
+                <div class="time-box">
+                    <span id="seconds">00</span>
+                    <label>Saniye</label>
+                </div>
+            </div>
+
+            <div class="info-grid">
+                <div class="glass-card">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Bereketli İftarlar</h3>
+                    <p>Okulumuz ramazan coşkusunu yaşıyor.</p>
+                </div>
+                <div class="glass-card">
+                    <i class="fas fa-hands-praying"></i>
+                    <h3>Teravih Coşkusu</h3>
+                    <p>Genç seslerle yankılanan camimizde maneviyat dolu geceler.</p>
+                </div>
+                <div class="glass-card">
+                    <i class="fas fa-gift"></i>
+                    <h3>Paylaşma Vakti</h3>
+                    <p>Yardımlaşma kolumuzla bu ay her kapıyı çalıyoruz.</p>
+                </div>
+            </div>
+
+            <footer>
+                &copy; 2026 | ŞEHİT CUMA İBİŞ MTAL BİLİŞİM BÖLÜMÜ
+            </footer>
+        </div>
+    </section>
+
+    <script>
+        // Hedef Vakit (Örnek: 18 Şubat 2026 18:45)
+        const targetDate = new Date("Feb 18, 2026 18:09:00").getTime();
+
+        const updateCountdown = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            // Zaman hesaplamaları
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // HTML'e yazdırma
+            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+
+            // Süre bittiğinde
+            if (distance < 0) {
+                clearInterval(updateCountdown);
+                document.querySelector("h1").innerText = "Hayırlı İftarlar!";
+                document.querySelector(".countdown-container").innerHTML = "<h3>Allah Kabul Etsin</h3>";
+            }
+        }, 1000);
+    </script>
+
+</body>
+</html>
